@@ -1,0 +1,23 @@
+{
+  "name": "ctci",
+  "version": "1.0.0",
+  "description": "my cracking the coding interview solutions",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./edition*/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgraves/ctci.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kgraves/ctci/issues"
+  },
+  "homepage": "https://github.com/kgraves/ctci#readme",
+  "private": true,
+  "devDependencies": {
+    "mocha": "2.4.5"
+  }
+}
