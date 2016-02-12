@@ -4,7 +4,7 @@
   "description": "my cracking the coding interview solutions",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./edition*/**/*.js"
+    "test": "mocha ./**/*.js"
   },
   "repository": {
     "type": "git",
