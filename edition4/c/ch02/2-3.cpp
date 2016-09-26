@@ -24,7 +24,7 @@ class LinkedList {
     Node *head;
     LinkedList();
     void add(int value);
-    Node* nthToLast(int n);
+    void deleteFromNode(Node *n);
     int length();
     void print();
 };
@@ -45,6 +45,19 @@ void LinkedList::add(int value) {
 
     temp->next = new Node(value, NULL);
   }
+}
+
+void LinkedList::deleteFromNode(Node *n) {
+  if (!n || !n->next) {
+    return;
+  }
+
+  Node *next = n->next;
+
+  n->value = n->next->value;
+  n->next = n->next->next;
+
+  delete next;
 }
 
 int LinkedList::length() {
@@ -70,43 +83,19 @@ void LinkedList::print() {
   cout << "NULL" << endl;
 }
 
-Node* LinkedList::nthToLast(int n) {
-  if (!this->head || n < 0) {
-    return NULL;
-  } else {
-    Node *curr = this->head;
-    Node *last;
-
-    // #       *
-    // 0 - 1 - 2 - 3
-    int dist = n;
-    while (dist--) {
-      curr = curr->next;
-    }
-
-    last = this->head;
-
-    while (curr->next != NULL) {
-      curr = curr->next;
-      last = last->next;
-    }
-
-    return last;
-  }
-}
-
 int main() {
   LinkedList list;
-
-  assert(list.nthToLast(0) == NULL);
-  assert(list.nthToLast(1) == NULL);
+  list.deleteFromNode(list.head);
 
   list.add(1);
   list.add(2);
   list.add(3);
-  assert(list.nthToLast(0)->value == 3);
-  assert(list.nthToLast(1)->value == 2);
-  assert(list.nthToLast(2)->value == 1);
+  list.add(4);
+  list.deleteFromNode(list.head->next);
+  assert(list.length() == 3);
+  assert(list.head->value == 1);
+  assert(list.head->next->value == 3);
+  assert(list.head->next->next->value == 4);
 
   return 0;
 }
