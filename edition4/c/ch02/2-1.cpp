@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <iostream>
+#include <map>
 #include <string>
 
 using namespace std;
@@ -25,6 +26,7 @@ class LinkedList {
     LinkedList();
     void add(int value);
     void removeDups();
+    void removeDupsBetter();
     int length();
     void print();
 };
@@ -71,6 +73,33 @@ void LinkedList::removeDups() {
   }
 }
 
+void LinkedList::removeDupsBetter() {
+  map<int, bool> m;
+  Node *prev = this->head;
+  Node *curr = this->head->next;
+
+  // seed the map with value of first list element that we are skipping.
+  // m.insert(prev->value, true);
+  m.insert(pair<int,bool>(prev->value,true));
+
+  while (curr) {
+    // check hash, if exists, delete from list
+    if (m.find(curr->value) != m.end()) {
+        Node * temp = curr;
+        curr = curr->next;
+        prev->next = curr;
+        delete temp;
+
+        continue;
+    } else {
+      m.insert(pair<int,bool>(curr->value,true));
+    }
+
+    // add to map and increment the current pointer
+    prev = curr;
+    curr = curr->next;
+  }
+}
 
 int LinkedList::length() {
   int length = 0;
@@ -100,11 +129,11 @@ int main() {
   list.add(1);
   list.add(2);
   list.add(3);
-  list.removeDups();
+  list.removeDupsBetter();
   assert(list.length() == 3);
 
   list.add(2);
-  list.removeDups();
+  list.removeDupsBetter();
   assert(list.length() == 3);
 
   list.add(2);
@@ -112,8 +141,7 @@ int main() {
   list.add(2);
   list.add(2);
   list.add(2);
-  list.removeDups();
-  cout << list.length() << endl;
+  list.removeDupsBetter();
   assert(list.length() == 3);
 
   return 0;
