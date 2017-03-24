@@ -15,7 +15,7 @@ int countOnesBits(int n) {
 
   while (i < 32) {
     if ((n & (1<<i)) > 0) {
-      count ++;
+      count++;
     }
 
     i++;
